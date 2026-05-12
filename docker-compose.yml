@@ -1,0 +1,66 @@
+
+services:
+  # --- Database (PostgreSQL) ---
+  db:
+    image: postgres:16-alpine
+    container_name: etherea_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-ecommerce}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - etherea_net
+
+  # --- Cache (Redis) ---
+  redis:
+    image: redis:7-alpine
+    container_name: etherea_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - etherea_net
+
+  # --- Backend (Flask + Gunicorn) ---
+  backend:
+    build: ./backend
+    container_name: etherea_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db:5432/${DB_NAME:-ecommerce}
+      REDIS_URL: redis://redis:6379/0
+    command: >
+      sh -c "python init_db.py && gunicorn --worker-class eventlet --bind 0.0.0.0:5000 --workers 1 wsgi:app"
+    networks:
+      - etherea_net
+
+  # --- Frontend (React + Nginx) ---
+  frontend:
+    build: ./frontend
+    container_name: etherea_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - etherea_net
+
+networks:
+  etherea_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
