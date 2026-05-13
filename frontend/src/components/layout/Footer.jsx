@@ -49,8 +49,8 @@ const Footer = () => {
             <h4 className="font-bold mb-6">Join the Cloud</h4>
             <p className="text-sm text-gray-400 mb-4">Subscribe for exclusive drops and tech updates.</p>
             <div className="relative">
-              <input 
-                type="email" 
+              <input
+                type="email"
                 placeholder="email@example.com"
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:ring-2 focus:ring-primary/50 transition-all text-sm"
               />
@@ -65,7 +65,7 @@ const Footer = () => {
           <p>© 2026 Etherea Cloud Platform. All rights reserved.</p>
           <div className="flex gap-8">
             <span className="flex items-center gap-1"><div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" /> AWS Global Infrastructure</span>
-            <span>Built by Yash jain</span>
+            <span>Built by Yash Jain</span>
           </div>
         </div>
       </div>
