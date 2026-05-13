@@ -13,7 +13,7 @@ def create_app(config_name=None):
     # Initialize extensions
     db.init_app(app)
     jwt.init_app(app)
-    cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
+    cors.init_app(app, resources={r"/api/*": {"origins": ["http://localhost:5173", "https://main.d1thxv6ti1apfa.amplifyapp.com"], "supports_credentials": True}})
     migrate.init_app(app, db)
     socketio.init_app(app)
 
