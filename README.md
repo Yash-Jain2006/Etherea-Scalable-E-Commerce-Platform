@@ -1,6 +1,5 @@
 # Overview
 Etherea is a cloud-based scalable e-commerce platform developed to simulate a real-world online shopping system capable of handling high traffic and modern deployment requirements. The project demonstrates cloud computing concepts, scalable web architecture, deployment automation, and full-stack development using AWS cloud services.
-It also demonstrates end-to-end product engineering — from database design and RESTful API development to containerized deployment on AWS Amplify.
 <br><br>
 The platform supports a complete e-commerce workflow including product browsing, cart management, user authentication, cloud deployment, order placement, admin operations, and scalable infrastructure for handling multiple users efficiently — all served through a microservice-oriented architecture with real-time caching.
 
